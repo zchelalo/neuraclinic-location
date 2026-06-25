@@ -263,18 +263,16 @@ func (x *Country) GetSourceVersion() string {
 }
 
 type AdminArea struct {
-	state       protoimpl.MessageState `protogen:"open.v1"`
-	Id          string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	CountryCode string                 `protobuf:"bytes,2,opt,name=country_code,json=countryCode,proto3" json:"country_code,omitempty"`
-	Code        string                 `protobuf:"bytes,3,opt,name=code,proto3" json:"code,omitempty"`
-	Name        string                 `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
-	// Deprecated: Marked as deprecated in location/v1/location.proto.
-	Type          string        `protobuf:"bytes,5,opt,name=type,proto3" json:"type,omitempty"`
-	ParentCode    *string       `protobuf:"bytes,6,opt,name=parent_code,json=parentCode,proto3,oneof" json:"parent_code,omitempty"`
-	Label         string        `protobuf:"bytes,7,opt,name=label,proto3" json:"label,omitempty"`
-	Source        string        `protobuf:"bytes,8,opt,name=source,proto3" json:"source,omitempty"`
-	SourceVersion string        `protobuf:"bytes,9,opt,name=source_version,json=sourceVersion,proto3" json:"source_version,omitempty"`
-	AdminAreaType AdminAreaType `protobuf:"varint,10,opt,name=admin_area_type,json=adminAreaType,proto3,enum=location.v1.AdminAreaType" json:"admin_area_type,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	CountryCode   string                 `protobuf:"bytes,2,opt,name=country_code,json=countryCode,proto3" json:"country_code,omitempty"`
+	Code          string                 `protobuf:"bytes,3,opt,name=code,proto3" json:"code,omitempty"`
+	Name          string                 `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
+	ParentCode    *string                `protobuf:"bytes,6,opt,name=parent_code,json=parentCode,proto3,oneof" json:"parent_code,omitempty"`
+	Label         string                 `protobuf:"bytes,7,opt,name=label,proto3" json:"label,omitempty"`
+	Source        string                 `protobuf:"bytes,8,opt,name=source,proto3" json:"source,omitempty"`
+	SourceVersion string                 `protobuf:"bytes,9,opt,name=source_version,json=sourceVersion,proto3" json:"source_version,omitempty"`
+	AdminAreaType AdminAreaType          `protobuf:"varint,10,opt,name=admin_area_type,json=adminAreaType,proto3,enum=location.v1.AdminAreaType" json:"admin_area_type,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -333,14 +331,6 @@ func (x *AdminArea) GetCode() string {
 func (x *AdminArea) GetName() string {
 	if x != nil {
 		return x.Name
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in location/v1/location.proto.
-func (x *AdminArea) GetType() string {
-	if x != nil {
-		return x.Type
 	}
 	return ""
 }
@@ -861,14 +851,12 @@ func (x *ListCountriesResponse) GetCountries() []*Country {
 }
 
 type ListAdminAreasRequest struct {
-	state       protoimpl.MessageState `protogen:"open.v1"`
-	CountryCode string                 `protobuf:"bytes,1,opt,name=country_code,json=countryCode,proto3" json:"country_code,omitempty"`
-	ParentCode  *string                `protobuf:"bytes,2,opt,name=parent_code,json=parentCode,proto3,oneof" json:"parent_code,omitempty"`
-	// Deprecated: Marked as deprecated in location/v1/location.proto.
-	Type          *string        `protobuf:"bytes,3,opt,name=type,proto3,oneof" json:"type,omitempty"`
-	Query         *string        `protobuf:"bytes,4,opt,name=query,proto3,oneof" json:"query,omitempty"`
-	Limit         int32          `protobuf:"varint,5,opt,name=limit,proto3" json:"limit,omitempty"`
-	AdminAreaType *AdminAreaType `protobuf:"varint,6,opt,name=admin_area_type,json=adminAreaType,proto3,enum=location.v1.AdminAreaType,oneof" json:"admin_area_type,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	CountryCode   string                 `protobuf:"bytes,1,opt,name=country_code,json=countryCode,proto3" json:"country_code,omitempty"`
+	ParentCode    *string                `protobuf:"bytes,2,opt,name=parent_code,json=parentCode,proto3,oneof" json:"parent_code,omitempty"`
+	Query         *string                `protobuf:"bytes,4,opt,name=query,proto3,oneof" json:"query,omitempty"`
+	Limit         int32                  `protobuf:"varint,5,opt,name=limit,proto3" json:"limit,omitempty"`
+	AdminAreaType *AdminAreaType         `protobuf:"varint,6,opt,name=admin_area_type,json=adminAreaType,proto3,enum=location.v1.AdminAreaType,oneof" json:"admin_area_type,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -913,14 +901,6 @@ func (x *ListAdminAreasRequest) GetCountryCode() string {
 func (x *ListAdminAreasRequest) GetParentCode() string {
 	if x != nil && x.ParentCode != nil {
 		return *x.ParentCode
-	}
-	return ""
-}
-
-// Deprecated: Marked as deprecated in location/v1/location.proto.
-func (x *ListAdminAreasRequest) GetType() string {
-	if x != nil && x.Type != nil {
-		return *x.Type
 	}
 	return ""
 }
@@ -1478,13 +1458,12 @@ const file_location_v1_location_proto_rawDesc = "" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x14\n" +
 	"\x05label\x18\x03 \x01(\tR\x05label\x12\x16\n" +
 	"\x06source\x18\x04 \x01(\tR\x06source\x12%\n" +
-	"\x0esource_version\x18\x05 \x01(\tR\rsourceVersion\"\xcd\x02\n" +
+	"\x0esource_version\x18\x05 \x01(\tR\rsourceVersion\"\xb5\x02\n" +
 	"\tAdminArea\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12!\n" +
 	"\fcountry_code\x18\x02 \x01(\tR\vcountryCode\x12\x12\n" +
 	"\x04code\x18\x03 \x01(\tR\x04code\x12\x12\n" +
-	"\x04name\x18\x04 \x01(\tR\x04name\x12\x16\n" +
-	"\x04type\x18\x05 \x01(\tB\x02\x18\x01R\x04type\x12$\n" +
+	"\x04name\x18\x04 \x01(\tR\x04name\x12$\n" +
 	"\vparent_code\x18\x06 \x01(\tH\x00R\n" +
 	"parentCode\x88\x01\x01\x12\x14\n" +
 	"\x05label\x18\a \x01(\tR\x05label\x12\x16\n" +
@@ -1542,17 +1521,15 @@ const file_location_v1_location_proto_rawDesc = "" +
 	"\x05limit\x18\x02 \x01(\x05R\x05limitB\b\n" +
 	"\x06_query\"K\n" +
 	"\x15ListCountriesResponse\x122\n" +
-	"\tcountries\x18\x01 \x03(\v2\x14.location.v1.CountryR\tcountries\"\xae\x02\n" +
+	"\tcountries\x18\x01 \x03(\v2\x14.location.v1.CountryR\tcountries\"\x88\x02\n" +
 	"\x15ListAdminAreasRequest\x12!\n" +
 	"\fcountry_code\x18\x01 \x01(\tR\vcountryCode\x12$\n" +
 	"\vparent_code\x18\x02 \x01(\tH\x00R\n" +
-	"parentCode\x88\x01\x01\x12\x1b\n" +
-	"\x04type\x18\x03 \x01(\tB\x02\x18\x01H\x01R\x04type\x88\x01\x01\x12\x19\n" +
-	"\x05query\x18\x04 \x01(\tH\x02R\x05query\x88\x01\x01\x12\x14\n" +
+	"parentCode\x88\x01\x01\x12\x19\n" +
+	"\x05query\x18\x04 \x01(\tH\x01R\x05query\x88\x01\x01\x12\x14\n" +
 	"\x05limit\x18\x05 \x01(\x05R\x05limit\x12G\n" +
-	"\x0fadmin_area_type\x18\x06 \x01(\x0e2\x1a.location.v1.AdminAreaTypeH\x03R\radminAreaType\x88\x01\x01B\x0e\n" +
-	"\f_parent_codeB\a\n" +
-	"\x05_typeB\b\n" +
+	"\x0fadmin_area_type\x18\x06 \x01(\x0e2\x1a.location.v1.AdminAreaTypeH\x02R\radminAreaType\x88\x01\x01B\x0e\n" +
+	"\f_parent_codeB\b\n" +
 	"\x06_queryB\x12\n" +
 	"\x10_admin_area_type\"Q\n" +
 	"\x16ListAdminAreasResponse\x127\n" +

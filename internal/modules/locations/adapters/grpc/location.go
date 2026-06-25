@@ -2,7 +2,6 @@ package grpc
 
 import (
 	"context"
-	"strings"
 
 	locationv1 "github.com/zchelalo/neuraclinic-location/gen/go/location/v1"
 	"github.com/zchelalo/neuraclinic-location/internal/modules/locations/domain"
@@ -139,7 +138,6 @@ func adminAreaToProto(adminArea domain.AdminArea) *locationv1.AdminArea {
 		CountryCode:   adminArea.CountryCode,
 		Code:          adminArea.Code,
 		Name:          adminArea.Name,
-		Type:          adminArea.Type,
 		ParentCode:    adminArea.ParentCode,
 		Label:         adminArea.Label,
 		Source:        adminArea.Source,
@@ -221,10 +219,10 @@ func optionalValue(value *string) string {
 }
 
 func adminAreaTypeFilterFromProto(req *locationv1.ListAdminAreasRequest) (string, error) {
-	if req.AdminAreaType != nil {
-		return adminAreaTypeFromProto(req.GetAdminAreaType())
+	if req == nil || req.AdminAreaType == nil {
+		return "", nil
 	}
-	return legacyAdminAreaType(optionalValue(req.Type))
+	return adminAreaTypeFromProto(req.GetAdminAreaType())
 }
 
 func adminAreaTypeFromProto(value locationv1.AdminAreaType) (string, error) {
@@ -234,19 +232,6 @@ func adminAreaTypeFromProto(value locationv1.AdminAreaType) (string, error) {
 	case locationv1.AdminAreaType_ADMIN_AREA_TYPE_STATE:
 		return domain.AdminAreaTypeState, nil
 	case locationv1.AdminAreaType_ADMIN_AREA_TYPE_MUNICIPALITY:
-		return domain.AdminAreaTypeMunicipality, nil
-	default:
-		return "", locationerrors.ErrInvalidInput
-	}
-}
-
-func legacyAdminAreaType(value string) (string, error) {
-	switch strings.ToLower(strings.TrimSpace(value)) {
-	case "":
-		return "", nil
-	case domain.AdminAreaTypeState:
-		return domain.AdminAreaTypeState, nil
-	case domain.AdminAreaTypeMunicipality:
 		return domain.AdminAreaTypeMunicipality, nil
 	default:
 		return "", locationerrors.ErrInvalidInput

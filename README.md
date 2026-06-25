@@ -95,7 +95,7 @@ That file is intentionally not imported by the current target. All downloaded fi
 - `ADMIN_AREA_TYPE_STATE`: first-level administrative areas, such as Mexican states.
 - `ADMIN_AREA_TYPE_MUNICIPALITY`: municipalities parented to a state.
 
-The previous request field `type` is still accepted for compatibility but is deprecated. New clients should use `admin_area_type`; invalid deprecated string values are rejected.
+`ListAdminAreasRequest` only accepts `admin_area_type`. `AdminArea` responses also expose `admin_area_type` instead of a free-form administrative type string.
 
 Settlement types are intentionally not an enum yet. Values such as `Colonia`, `Fraccionamiento`, or `Pueblo` come from SEPOMEX and may vary by source, so they remain source data rather than application-controlled taxonomy.
 

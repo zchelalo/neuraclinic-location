@@ -14,7 +14,6 @@ func TestAdminAreaTypeFilterFromProtoUsesEnum(t *testing.T) {
 
 	got, err := adminAreaTypeFilterFromProto(&locationv1.ListAdminAreasRequest{
 		AdminAreaType: &adminAreaType,
-		Type:          stringPtr(domain.AdminAreaTypeState),
 	})
 	if err != nil {
 		t.Fatalf("adminAreaTypeFilterFromProto() error = %v", err)
@@ -24,24 +23,20 @@ func TestAdminAreaTypeFilterFromProtoUsesEnum(t *testing.T) {
 	}
 }
 
-func TestAdminAreaTypeFilterFromProtoAcceptsDeprecatedString(t *testing.T) {
-	got, err := adminAreaTypeFilterFromProto(&locationv1.ListAdminAreasRequest{
-		Type: stringPtr(" State "),
-	})
+func TestAdminAreaTypeFilterFromProtoWithoutEnumReturnsEmptyFilter(t *testing.T) {
+	got, err := adminAreaTypeFilterFromProto(&locationv1.ListAdminAreasRequest{})
 	if err != nil {
 		t.Fatalf("adminAreaTypeFilterFromProto() error = %v", err)
 	}
-	if got != domain.AdminAreaTypeState {
-		t.Fatalf("adminAreaTypeFilterFromProto() = %q, want %q", got, domain.AdminAreaTypeState)
+	if got != "" {
+		t.Fatalf("adminAreaTypeFilterFromProto() = %q, want empty filter", got)
 	}
 }
 
-func TestAdminAreaTypeFilterFromProtoRejectsInvalidDeprecatedString(t *testing.T) {
-	_, err := adminAreaTypeFilterFromProto(&locationv1.ListAdminAreasRequest{
-		Type: stringPtr("province"),
-	})
+func TestAdminAreaTypeFromProtoRejectsUnknownValue(t *testing.T) {
+	_, err := adminAreaTypeFromProto(locationv1.AdminAreaType(99))
 	if !errors.Is(err, locationerrors.ErrInvalidInput) {
-		t.Fatalf("adminAreaTypeFilterFromProto() error = %v, want ErrInvalidInput", err)
+		t.Fatalf("adminAreaTypeFromProto() error = %v, want ErrInvalidInput", err)
 	}
 }
 
@@ -55,8 +50,4 @@ func TestAdminAreaTypeToProto(t *testing.T) {
 	if got := adminAreaTypeToProto("province"); got != locationv1.AdminAreaType_ADMIN_AREA_TYPE_UNSPECIFIED {
 		t.Fatalf("adminAreaTypeToProto(unknown) = %s", got)
 	}
-}
-
-func stringPtr(value string) *string {
-	return &value
 }
