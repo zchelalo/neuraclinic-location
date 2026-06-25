@@ -1,0 +1,22 @@
+version: "2"
+cloud:
+  organization: ""
+  project: ""
+  hostname: ""
+servers: []
+sql:
+  - engine: "postgresql"
+    schema: "internal/db/migrations"
+    queries: "internal/db/queries/locations"
+    gen:
+      go:
+        package: "locationsdb"
+        out: "internal/db/sqlc/locations"
+        sql_package: "pgx/v5"
+        emit_json_tags: true
+        emit_empty_slices: true
+overrides:
+  go: null
+plugins: []
+rules: []
+options: {}
