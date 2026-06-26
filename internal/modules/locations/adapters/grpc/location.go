@@ -15,7 +15,7 @@ func (s *LocationService) ListCountries(ctx context.Context, req *locationv1.Lis
 		Limit: req.GetLimit(),
 	})
 	if err != nil {
-		return nil, locationgrpc.MapError(err)
+		return nil, locationgrpc.MapError(ctx, err)
 	}
 
 	resp := &locationv1.ListCountriesResponse{Countries: make([]*locationv1.Country, 0, len(countries))}
@@ -28,7 +28,7 @@ func (s *LocationService) ListCountries(ctx context.Context, req *locationv1.Lis
 func (s *LocationService) ListAdminAreas(ctx context.Context, req *locationv1.ListAdminAreasRequest) (*locationv1.ListAdminAreasResponse, error) {
 	typeFilter, err := adminAreaTypeFilterFromProto(req)
 	if err != nil {
-		return nil, locationgrpc.MapError(err)
+		return nil, locationgrpc.MapError(ctx, err)
 	}
 
 	adminAreas, err := s.app.ListAdminAreas(ctx, domain.AdminAreaFilter{
@@ -39,7 +39,7 @@ func (s *LocationService) ListAdminAreas(ctx context.Context, req *locationv1.Li
 		Limit:       req.GetLimit(),
 	})
 	if err != nil {
-		return nil, locationgrpc.MapError(err)
+		return nil, locationgrpc.MapError(ctx, err)
 	}
 
 	resp := &locationv1.ListAdminAreasResponse{AdminAreas: make([]*locationv1.AdminArea, 0, len(adminAreas))}
@@ -57,7 +57,7 @@ func (s *LocationService) ListLocalities(ctx context.Context, req *locationv1.Li
 		Limit:         req.GetLimit(),
 	})
 	if err != nil {
-		return nil, locationgrpc.MapError(err)
+		return nil, locationgrpc.MapError(ctx, err)
 	}
 
 	resp := &locationv1.ListLocalitiesResponse{Localities: make([]*locationv1.Locality, 0, len(localities))}
@@ -77,7 +77,7 @@ func (s *LocationService) ListSettlements(ctx context.Context, req *locationv1.L
 		Limit:         req.GetLimit(),
 	})
 	if err != nil {
-		return nil, locationgrpc.MapError(err)
+		return nil, locationgrpc.MapError(ctx, err)
 	}
 
 	resp := &locationv1.ListSettlementsResponse{Settlements: make([]*locationv1.Settlement, 0, len(settlements))}
@@ -94,7 +94,7 @@ func (s *LocationService) SearchPostalCodes(ctx context.Context, req *locationv1
 		Limit:            req.GetLimit(),
 	})
 	if err != nil {
-		return nil, locationgrpc.MapError(err)
+		return nil, locationgrpc.MapError(ctx, err)
 	}
 
 	resp := &locationv1.SearchPostalCodesResponse{PostalCodes: make([]*locationv1.PostalCodeMatch, 0, len(postalCodes))}
@@ -112,7 +112,7 @@ func (s *LocationService) SuggestAddress(ctx context.Context, req *locationv1.Su
 		Limit:       req.GetLimit(),
 	})
 	if err != nil {
-		return nil, locationgrpc.MapError(err)
+		return nil, locationgrpc.MapError(ctx, err)
 	}
 
 	resp := &locationv1.SuggestAddressResponse{Suggestions: make([]*locationv1.AddressSuggestion, 0, len(suggestions))}

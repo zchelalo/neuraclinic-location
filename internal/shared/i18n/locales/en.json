@@ -1,0 +1,7 @@
+{
+  "messages": {
+    "not_found": "not found",
+    "invalid_input": "invalid input",
+    "internal_server_error": "internal server error"
+  }
+}
